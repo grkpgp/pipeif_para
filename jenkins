@@ -1,0 +1,23 @@
+pipeline {
+agent any
+parameters {
+choice (name: 'CHOICE ENV', choices: ['TEST', 'QA','PROD'], description: 'enter environment to deploy')
+}
+stages{
+stage('BUILD') {
+environment {
+STAGE_NAME ='build'
+}
+steps {
+def br_name = "${params.DENV}"
+if (br_name == "TEST") {
+echo "Deploying to test environment "
+}else if (br_name == "QA") {
+echo "Deploying to QA environment"
+}else if (br_name == "PROD") {
+echo "deploying to PROD environment"
+}
+}
+}
+}
+}
